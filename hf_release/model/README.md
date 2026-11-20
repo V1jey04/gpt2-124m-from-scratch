@@ -34,6 +34,7 @@ A 124M-parameter chat model whose tokenizer, architecture, training loop and cha
 written from scratch, then trained on Kaggle's free T4 GPUs.
 
 - **Code:** [github.com/V1jey04/gpt2-124m-from-scratch](https://github.com/V1jey04/gpt2-124m-from-scratch)
+- **Try it:** [in-browser demo](https://huggingface.co/spaces/V1jey04/gpt2-124m-from-scratch). The int8 ONNX copy runs on your device.
 
 This is a custom PyTorch model, not a `transformers` model. Load it with the repo's own code (below).
 
@@ -46,7 +47,7 @@ This is a custom PyTorch model, not a `transformers` model. Load it with the rep
 | Embeddings | learned positions; input and output embeddings tied |
 | Tokenizer | byte-level BPE, 50,000 pieces + 4 chat tokens, vocabulary padded to 50,304 |
 | Chat format | `<|bos|><|user|>{question}<|end|><|assistant|>{answer}<|end|>` |
-| Files | `model.safetensors` (fp32, tied weight stored once), `config.json`, `tokenizer.json` |
+| Files | `model.safetensors` (fp32, tied weight stored once), `config.json`, `tokenizer.json`, `onnx/model_int8.onnx` (per-channel int8 with a KV cache, for the browser demo) |
 
 ## Training
 

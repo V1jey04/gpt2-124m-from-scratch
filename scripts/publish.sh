@@ -24,9 +24,12 @@ done
 hf repos create "$HF_USER/$NAME" --type model --public --exist-ok
 hf upload "$HF_USER/$NAME" hf_release/model . --repo-type model --commit-message "Upload weights and model card"
 
-# 2. demo Space (free CPU)
-hf repos create "$HF_USER/$NAME" --type space --space-sdk gradio --public --exist-ok
-hf upload "$HF_USER/$NAME" hf_release/space . --repo-type space --commit-message "Chat demo"
+# 2. in-browser demo as a static Space (free; Gradio Spaces now need PRO, so hf_release/space is not used)
+[ -f hf_release/model/onnx/model_int8.onnx ] || .venv/bin/python scripts/export_onnx.py
+hf upload "$HF_USER/$NAME" hf_release/model/onnx/model_int8.onnx onnx/model_int8.onnx --repo-type model --commit-message "int8 ONNX for the browser demo"
+hf repos create "$HF_USER/$NAME" --type space --space-sdk static --public --exist-ok
+# `hf upload` would try to create a Gradio Space, so upload through the Python API
+.venv/bin/python -c "from huggingface_hub import HfApi; HfApi().upload_folder(repo_id='$HF_USER/$NAME', repo_type='space', folder_path='hf_release/web', commit_message='In-browser chat demo')"
 
 # 3. code (commit identity for this repo only: GitHub name + private no-reply email)
 if ! git config user.email >/dev/null; then
@@ -49,4 +52,4 @@ git push -u origin main
 echo
 echo "Code:  https://github.com/$GH_USER/$NAME"
 echo "Model: https://huggingface.co/$HF_USER/$NAME"
-echo "Demo:  https://huggingface.co/spaces/$HF_USER/$NAME   (takes a few minutes to build)"
+echo "Demo:  https://huggingface.co/spaces/$HF_USER/$NAME"

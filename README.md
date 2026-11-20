@@ -4,7 +4,8 @@ A 124M-parameter language model and its tokenizer, written from scratch and trai
 free T4 GPUs for $0. It was pretrained on 2.42B tokens of educational web text, then fine-tuned
 on 276M tokens of conversations, and it now chats on a laptop CPU.
 
-**[Model weights and model card on Hugging Face](https://huggingface.co/V1jey04/gpt2-124m-from-scratch)**
+**[Try it in your browser](https://huggingface.co/spaces/V1jey04/gpt2-124m-from-scratch)** (runs on your device, nothing to install) ·
+**[Model weights and card](https://huggingface.co/V1jey04/gpt2-124m-from-scratch)**
 
 <img src="docs/tokenizer.gif" width="360" alt="Animation: the bytes of 'What is photosynthesis?' merge into four tokens">
 
@@ -18,6 +19,7 @@ standard-library Python, and the model is plain PyTorch.
 | Training | `train.py` | Two-GPU DDP, fp16, gradient accumulation, exact checkpoint and resume |
 | Data | `data/` | Streams, tokenizes and shards FineWeb-Edu and the chat datasets |
 | Chat | `chat.py` | Terminal chat with streaming output |
+| Browser demo | `hf_release/web/` | ONNX Runtime Web + a JavaScript port of the tokenizer, KV cache in a web worker |
 | Benchmarks | `benchmark.py` | Zero-shot comparison against OpenAI's GPT-2 124M |
 
 ## Results
@@ -81,6 +83,13 @@ and their closing `<|end|>`, so the model learns to answer, not to imitate users
 
 **Inference.** A per-layer KV cache means each new token costs one row of attention. Sampling
 supports temperature, top-k, top-p and a repetition penalty.
+
+**In the browser.** `scripts/export_onnx.py` exports one ONNX graph that handles both the prompt and
+each new token through the KV cache, checks it against PyTorch, and quantises it to per-channel
+int8 (126 MB). Per-tensor int8 drifted from the full-precision model within a few tokens;
+per-channel stayed close. The tokenizer is ported to JavaScript and gives the same ids as the Python
+version on 219 test strings, including accents, CJK, emoji and code. The demo runs at about 40
+tokens/s on a laptop CPU.
 
 ## Run it
 

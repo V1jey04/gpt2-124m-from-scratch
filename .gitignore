@@ -17,3 +17,4 @@ linkedin_promo/
 # data shards
 *.bin
 .claude/
+*.onnx
