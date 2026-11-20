@@ -1,0 +1,19 @@
+# model weights and checkpoints (published on Hugging Face instead)
+*.pt
+*.safetensors
+hf_release/model/tokenizer.json
+
+# local environment and scratch
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+llm-code.zip
+HANDOFF.md
+linkedin_promo/
+.taste-skill/
+.gradio/
+
+# data shards
+*.bin
+.claude/

@@ -1,0 +1,21 @@
+{
+  "vocab_size": 50304,
+  "block_size": 1024,
+  "n_layer": 12,
+  "n_head": 12,
+  "n_embd": 768,
+  "dropout": 0.0,
+  "architecture": "GPT-2-small shape, written from scratch (model/gpt.py)",
+  "tied_embeddings": true,
+  "num_parameters": 124475904,
+  "special_tokens": {
+    "<|bos|>": 50000,
+    "<|user|>": 50001,
+    "<|assistant|>": 50002,
+    "<|end|>": 50003
+  },
+  "chat_format": "<|bos|><|user|>{question}<|end|><|assistant|>{answer}<|end|>",
+  "train_step": 4217,
+  "train_tokens_seen": 276365312,
+  "best_val_loss": 1.4454253911972046
+}

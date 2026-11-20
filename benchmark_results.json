@@ -1,0 +1,16 @@
+{
+  "ours (124M, 2.4B tok FineWeb-Edu + chat)": {
+    "hellaswag": 0.2840071698864768,
+    "arc_easy": 0.4090909090909091,
+    "lambada": 0.2068697845915001,
+    "wikitext_bpb": 1.3240501593973872,
+    "seconds": 1291
+  },
+  "OpenAI GPT-2 124M": {
+    "hellaswag": 0.2989444333798048,
+    "arc_easy": 0.4053030303030303,
+    "lambada": 0.3368911313797788,
+    "wikitext_bpb": 1.0196117895368435,
+    "seconds": 1176
+  }
+}

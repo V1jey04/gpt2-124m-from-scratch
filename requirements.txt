@@ -1,0 +1,11 @@
+# core: model, training, chat
+torch>=2.1
+numpy
+# data download and reading (data/ scripts)
+huggingface_hub
+pyarrow
+# optional: benchmark.py compares against OpenAI GPT-2
+transformers
+datasets
+# optional: scripts/export_hf.py
+safetensors
